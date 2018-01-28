@@ -392,35 +392,51 @@ namespace math_lib {
     }
 //---------------------------------------PERMUATION&COMBINATION-------------------------------------------------//
     
-    template <typename T = int>
-   const int permutation(const int n){
-       
-       if(n==0)
-           return 1;
-       std::stringstream ss;
-       
-       int p=1;
-            for (int i = n; i>=1; i--) {
-                p*=i;
-            }
-       return p;
+    template <typename T = uint64_t>
+    const T permutation(const int n){
+        if(n==0)
+            return 1;
+        std::stringstream ss;
+        
+        return n*permutation(n-1);
         
     }
     
-    template <typename T = int>
-    int combination(const int &n , const int &r){
+    template <typename T = uint64_t>
+    T combination(const int &n , const int &r){
         
-        if(n<0)
-            throw std::string("n SHOULD BE POSTIVE NUMBER!");
-        if(n==0&&r!=0)
-            throw std::string("ERROR! r=0 or n >= r ");
-        if(n<r)
-            throw std::string(" n SHOULD BE GREATER THAN OR EQUAL TO r ");
+        if (r<0) {
+            throw "R CANNOT BE LESS THAN 0 !\n";
+        }
         
-        int d =permutation(n-r);
-        int n1 = permutation(n);
-        int r1 = permutation(r);
-        return n1/(d*r1);
+        if (n<0) {
+            throw "N CANNOT BE LESS THAN 0 !\n";
+        }
+        
+        if (r>n) {
+            throw "R CANNOT BE LESS THAN N!\n";
+        }
+        
+        if (r == 0)
+            return 1;
+        
+        if (r > n/2)
+            return combination(n, n-r);
+        
+        
+        T res = 1;
+        
+        for(int k = 1; k <= r; ++k)
+        {
+            res *= n-k+1;
+            std::cout<<res<<' ';
+            res /= k;
+            std::cout<<res<<std::endl;
+        }
+        
+        return res;
+        
+        
         
     }
 
