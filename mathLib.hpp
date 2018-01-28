@@ -429,9 +429,7 @@ namespace math_lib {
         for(int k = 1; k <= r; ++k)
         {
             res *= n-k+1;
-            std::cout<<res<<' ';
             res /= k;
-            std::cout<<res<<std::endl;
         }
         
         return res;
